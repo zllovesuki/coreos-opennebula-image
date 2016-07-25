@@ -13,7 +13,7 @@
 				"chown -R root: .<enter>",
 				"chmod -R 0755 bin/<enter>",
 				"cd /root/<enter>",
-				"umount /tmp/oem<enter>"
+				"umount /tmp/oem<enter>",
                 "shutdown now<enter>"
             ],
             "boot_wait": "{{user `boot_wait`}}",
