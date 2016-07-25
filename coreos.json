@@ -14,8 +14,9 @@
 				"chmod -R 0755 bin/<enter>",
 				"cd /root/<enter>",
 				"umount /tmp/oem<enter>",
-                "shutdown now<enter>"
+                "<enter>"
             ],
+			"shutdown_command": "shutdown now",
             "boot_wait": "{{user `boot_wait`}}",
             "communicator": "none",
             "disk_size": 10240,
