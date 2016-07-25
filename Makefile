@@ -11,15 +11,7 @@ PACKER_IMAGE_COMPRESSION = false
 PACKER_IMAGE_DEPS = \
 	coreos.json \
 	packer.sh \
-	files/install.yml \
-	oem/coreos-setup-environment \
-	oem/opennebula-cloudinit \
-	oem/opennebula-common \
-	oem/opennebula-hostname \
-	oem/opennebula-network \
-	oem/opennebula-ssh-key \
-	scripts/cleanup.sh \
-	scripts/oem.sh
+	files/oem.tar.bz2
 
 all: $(PACKER_IMAGE)
 
