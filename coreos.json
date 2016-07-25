@@ -36,7 +36,6 @@
         }
     ],
     "description": "CoreOS image for OpenNebula",
-	"provisioners": [],
     "variables": {
         "accelerator": "kvm",
         "boot_wait": "60s",
@@ -46,7 +45,6 @@
         "install_target": "/dev/vda",
         "iso_checksum": "<not-set>",
         "iso_checksum_type": "md5",
-        "memory": "1024",
-        "remove_vagrant_key": "true"
+        "memory": "1024"
     }
 }
