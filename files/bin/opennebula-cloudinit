@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+if [ -n "$DEBUG" ] ; then
+    set -x
+fi
+
+here="$(cd $(dirname $0) && pwd)"
+
+. $here/opennebula-common
+
+echo "Running cloud-init with user data"
+
+if [ -z "$USER_DATA" ] ; then
+    if [ -z "$EC2_USER_DATA" ] ; then
+        echo "No user data, leaving."
+        exit 0
+    fi
+    USER_DATA="$(echo $EC2_USER_DATA | base64 -d | envsubst)"
+fi
+
+user_data="$(mktemp /tmp/user-data-XXXXXX.yml)"
+echo "$USER_DATA" > $user_data
+
+set -e
+coreos-cloudinit --from-file $user_data --validate
+coreos-cloudinit --from-file $user_data

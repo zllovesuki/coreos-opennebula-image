@@ -1,0 +1,85 @@
+#cloud-config
+
+coreos:
+  units:
+    # Disable CoreOS' default DHCP network setup.
+    - name: zz-default.network
+      content: ""
+
+    # Set up network parameters for `systemd-networkd.service` from
+    # OpenNebula context variables.
+    - name: opennebula-network.service
+      command: restart
+      runtime: yes
+      content: |
+        [Unit]
+        Description=OpenNebula network setup
+        Before=systemd-networkd.service
+        After=network-pre.target
+
+        [Service]
+        Type=oneshot
+        StandardOutput=journal+console
+        ExecStart=/usr/share/oem/bin/opennebula-network
+
+    # Reload network configuration (with debugging enabled, in case
+    # something goes wrong).
+    - name: systemd-networkd.service
+      drop-ins:
+        - name: 10-debug.conf
+          content: |
+            [Service]
+            Environment=SYSTEMD_LOG_LEVEL=debug
+      command: restart
+
+    # Set host name (might need network to be up in order to do DNS
+    # queries).
+    - name: opennebula-hostname.service
+      command: restart
+      runtime: yes
+      content: |
+        [Unit]
+        Description=Set host name.
+        Requires=network.target
+        After=network.target
+
+        [Service]
+        Type=oneshot
+        ExecStart=/usr/share/oem/bin/opennebula-hostname
+
+    # Set SSH public key for CoreOS user `core` from OpenNebula
+    # context variables.
+    - name: opennebula-ssh-key.service
+      command: restart
+      runtime: yes
+      content: |
+        [Unit]
+        Description=OpenNebula SSH key setup
+
+        [Service]
+        Type=oneshot
+        StandardOutput=journal+console
+        ExecStart=/usr/share/oem/bin/opennebula-ssh-key
+
+    # Process `cloud-config` user data from OpenNebula context
+    # variables.
+    - name: opennebula-cloudinit.service
+      command: restart
+      runtime: yes
+      content: |
+        [Unit]
+        Description=User-provided cloud-init setup
+        Requires=network.target coreos-setup-environment.service
+        After=network.target coreos-setup-environment.service
+
+        [Service]
+        Type=oneshot
+        EnvironmentFile=/etc/environment
+        ExecStart=/usr/share/oem/bin/opennebula-cloudinit
+
+  oem:
+    id: "opennebula"
+    name: "OpenNebula"
+    version-id: 1.0
+    home-url: https://github.com/zllovesuki/coreos-opennebula-image
+    bug-report-url: https://github.com/zllovesuki/coreos-opennebula-image
