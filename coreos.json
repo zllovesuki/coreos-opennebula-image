@@ -13,11 +13,9 @@
 				"chmod -R 0755 bin/<enter>",
 				"cd /root/<enter>",
 				"umount /tmp/oem<enter>",
-				"passwd core<enter>",
-				"core<enter>",
-				"core<enter>"
+				"echo 'core' | passwd --stdin core<enter>"
             ],
-			"shutdown_command": "shutdown now",
+			"shutdown_command": "sudo shutdown now",
             "boot_wait": "{{user `boot_wait`}}",
             "communicator": "ssh",
             "disk_size": 10240,
