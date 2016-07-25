@@ -13,8 +13,7 @@
 				"chown -R root: .<enter>",
 				"chmod -R 0755 bin/<enter>",
 				"cd /root/<enter>",
-				"umount /tmp/oem<enter>",
-                "<enter>"
+				"umount /tmp/oem<enter>"
             ],
 			"shutdown_command": "shutdown now",
             "boot_wait": "{{user `boot_wait`}}",
@@ -37,6 +36,7 @@
         }
     ],
     "description": "CoreOS image for OpenNebula",
+	"provisioners": [],
     "variables": {
         "accelerator": "kvm",
         "boot_wait": "60s",
