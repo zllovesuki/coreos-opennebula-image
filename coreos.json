@@ -13,11 +13,14 @@
 				"chown -R root: .<enter>",
 				"chmod -R 0755 bin/<enter>",
 				"cd /root/<enter>",
-				"umount /tmp/oem<enter>"
+				"umount /tmp/oem<enter>",
+				"passwd core<enter>",
+				"core<enter>",
+				"core<enter>"
             ],
 			"shutdown_command": "shutdown now",
             "boot_wait": "{{user `boot_wait`}}",
-            "communicator": "none",
+            "communicator": "ssh",
             "disk_size": 10240,
             "format": "qcow2",
             "headless": "{{user `headless`}}",
@@ -29,10 +32,12 @@
             "qemuargs": [
 				["-display", "none"],
                 ["-m", "{{user `memory`}}"],
-                ["-device", "virtio-net,netdev=user.0"],
-				["-netdev", "user,id=user.0"]
+                ["-device", "virtio-net,netdev=user.0"]
             ],
-            "type": "qemu"
+            "type": "qemu",
+			"ssh_timeout": "60m",
+            "ssh_username": "core",
+			"ssh_password": "core"
         }
     ],
     "description": "CoreOS image for OpenNebula",
