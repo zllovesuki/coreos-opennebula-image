@@ -17,6 +17,7 @@
                 "shutdown now<enter>"
             ],
             "boot_wait": "{{user `boot_wait`}}",
+            "communicator": "none",
             "disk_size": 10240,
             "format": "qcow2",
             "headless": "{{user `headless`}}",
