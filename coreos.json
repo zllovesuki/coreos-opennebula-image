@@ -29,7 +29,8 @@
             "qemuargs": [
 				["-display", "none"],
                 ["-m", "{{user `memory`}}"],
-                ["-device", "virtio-net,netdev=user.0"]
+                ["-device", "virtio-net,netdev=user.0"],
+				["-netdev", "user,id=user.0"]
             ],
             "type": "qemu"
         }
