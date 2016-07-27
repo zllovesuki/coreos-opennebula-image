@@ -18,7 +18,7 @@
 			"shutdown_command": "sudo shutdown now",
             "boot_wait": "{{user `boot_wait`}}",
             "communicator": "ssh",
-            "disk_size": 10240,
+            "disk_size": 20480,
             "format": "qcow2",
             "headless": "{{user `headless`}}",
             "http_directory": "files",
